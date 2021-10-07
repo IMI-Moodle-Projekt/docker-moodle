@@ -1,6 +1,6 @@
 docker-moodle
 =============
-[![.github/workflows/docker-publish.yml](https://github.com/jmhardison/docker-moodle/actions/workflows/docker-publish.yml/badge.svg?branch=master)](https://github.com/jmhardison/docker-moodle/actions/workflows/docker-publish.yml)
+[![.github/workflows/docker-publish.yml](https://github.com/jmhardison/docker-moodle/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/jmhardison/docker-moodle/actions/workflows/docker-publish.yml)
 
 Cross published at [github.](https://github.com/jmhardison/docker-moodle/pkgs/container/docker-moodle)
 
