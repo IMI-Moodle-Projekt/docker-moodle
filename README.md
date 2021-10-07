@@ -1,6 +1,8 @@
 docker-moodle
 =============
-[![Build Status](https://dev.azure.com/jmhardison/Docker%20Moodle/_apis/build/status/jmhardison.docker-moodle?branchName=master)](https://dev.azure.com/jmhardison/Docker%20Moodle/_build/latest?definitionId=1) [![](https://images.microbadger.com/badges/image/jhardison/moodle.svg)](https://microbadger.com/images/jhardison/moodle "Get your own image badge on microbadger.com")
+[![.github/workflows/docker-publish.yml](https://github.com/jmhardison/docker-moodle/actions/workflows/docker-publish.yml/badge.svg?branch=master)](https://github.com/jmhardison/docker-moodle/actions/workflows/docker-publish.yml)
+
+Cross published at [github.](https://github.com/jmhardison/docker-moodle/pkgs/container/docker-moodle)
 
 A Dockerfile that installs and runs the latest Moodle stable, with external MySQL Database.
 
