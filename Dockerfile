@@ -21,12 +21,12 @@ ENV SSL_PROXY false
 
 COPY ./foreground.sh /etc/apache2/foreground.sh
 
-RUN apt-get update && \
+RUN apt-get update && apt-get upgrade -y && \
 	apt-get -y install mysql-client pwgen python-setuptools curl git unzip apache2 php \
 		php-gd libapache2-mod-php postfix wget supervisor php-pgsql curl libcurl4 \
 		libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstring php-zip php-soap cron php-ldap && \
 	cd /tmp && \
-	git clone -b MOODLE_38_STABLE git://git.moodle.org/moodle.git --depth=1 && \
+	git clone -b MOODLE_311_STABLE git://git.moodle.org/moodle.git --depth=1 && \
 	mv /tmp/moodle/* /var/www/html/ && \
 	rm /var/www/html/index.html && \
 	chown -R www-data:www-data /var/www/html && \
