@@ -8,8 +8,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    env:
-      DATETAG: $(date +%s)
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
@@ -17,7 +15,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: false
-        tags: moodle:${{ env.DATETAG }}
+        tags: moodle:latest
 
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/docker@master
@@ -26,4 +24,4 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: monitor
-        image: moodle:${{ env.DATETAG }}
+        image: moodle:latest
