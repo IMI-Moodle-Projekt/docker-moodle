@@ -1,3 +1,22 @@
+## A local Moodle instance via Docker
+To start (in the repo root): `docker-compose up`
+
+To stop (in the repo root): `docker-compose down`
+
+To back up Moodle instance state (in the repo root): 
+* `docker ps` - find out id of container to backup
+* `docker commit −p -m "<COMMIT MESSAGE>" <CONTAINER_ID> backup-moodle_moodleapp_1_001`
+* `docker commit −p -m "<COMMIT MESSAGE>" <CONTAINER_ID> backup-moodle_dbapp_1_001`
+* `docker save -o ~/Backup/backup-moodle_moodleapp_1_001.tar backup−moodle_moodleapp_1_001`
+* `docker save -o ~/Backup/backup-moodle_dbapp_1_001.tar backup−moodle_dbapp_1_001`
+* Upload in the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup&fileid=127523215)
+
+To restore Moodle instance to prior state (in the repo root):
+* `docker load −i ∽/Backup/backup-moodle_moodleapp_1_001.tar`
+* `docker load −i ∽/Backup/backup-moodle_dbapp_1_001.tar`
+
+--- 
+
 docker-moodle
 =============
 [![Docker Release](https://github.com/jmhardison/docker-moodle/actions/workflows/docker-release.yml/badge.svg)](https://github.com/jmhardison/docker-moodle/actions/workflows/docker-release.yml)
