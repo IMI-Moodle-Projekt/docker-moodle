@@ -15,6 +15,9 @@ To restore Moodle instance to prior state (in the repo root):
 * `docker load −i ∽/Backup/backup-moodle_moodleapp_1_001.tar`
 * `docker load −i ∽/Backup/backup-moodle_dbapp_1_001.tar`
 
+To enter the shell of a docker container
+`docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it 40bb08670040 /bin/bash`
+
 --- 
 
 docker-moodle
