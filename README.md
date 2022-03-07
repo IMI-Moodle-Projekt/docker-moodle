@@ -4,11 +4,12 @@ To start (in the repo root): `docker-compose up`
 To stop (in the repo root): `docker-compose down`
 
 To back up Moodle instance state (in the repo root): 
+* Check which is the next backup tag
 * `docker ps` - find out id of container to backup
-* `docker commit −p -m "<COMMIT MESSAGE>" <CONTAINER_ID> backup-moodle_moodleapp_1_001`
-* `docker commit −p -m "<COMMIT MESSAGE>" <CONTAINER_ID> backup-moodle_dbapp_1_001`
-* `docker save -o ~/Backup/backup-moodle_moodleapp_1_001.tar backup−moodle_moodleapp_1_001`
-* `docker save -o ~/Backup/backup-moodle_dbapp_1_001.tar backup−moodle_dbapp_1_001`
+* `docker commit -p -m "<COMMIT MESSAGE>" <CONTAINER_ID> backup-moodle_moodleapp_1_001`
+* `docker commit -p -m "<COMMIT MESSAGE>" <CONTAINER_ID> backup-moodle_dbapp_1_001`
+* `docker save -o ~/Backup/backup-moodle_moodleapp_1_001.tar backup-moodle_moodleapp_1_001`
+* `docker save -o ~/Backup/backup-moodle_dbapp_1_001.tar backup-moodle_dbapp_1_001`
 * Upload in the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup&fileid=127523215)
 
 To restore Moodle instance to prior state (in the repo root):
@@ -16,7 +17,19 @@ To restore Moodle instance to prior state (in the repo root):
 * `docker load −i ∽/Backup/backup-moodle_dbapp_1_001.tar`
 
 To enter the shell of a docker container
-`docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it 40bb08670040 /bin/bash`
+`docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it b698c1cd3f2e /bin/bash`
+
+To access the db: 
+* In the container shell type `mysql -uroot -p` and enter the pw from the env file.
+* `use moodle`
+* `show tables;`
+
+Use Moodle: 
+Go to `http://localhost:80` and log in with Username `Admin` and PW `Admin12_`
+
+### Tags 
+* 000 - Moodle Installed (default setting, 100% online, fully online, analysis process execution NOT via CLI only, NEVER DELETE analytics calculations)
+* 001 - Test Course Created 
 
 --- 
 
@@ -67,6 +80,10 @@ You can visit the following URL in a browser to get started:
 
 ```
 http://localhost:8080 
+```
+or 
+```
+http://localhost:80
 ```
 
 ### Production Deployment
