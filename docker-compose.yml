@@ -5,7 +5,7 @@ services:
         image: mysql:5
         restart: always
         volumes:
-            - db-volume:/var/lib/mysql
+            - ./data:/var/lib/mysql
         env_file:
             - moodle_variables.env
         networks:
@@ -14,6 +14,8 @@ services:
             replicas: 1
             restart_policy:
                 condition: any
+        ports:
+            - 3306:3306
     moodleapp:
         image: jhardison/moodle:latest
         links:
@@ -37,7 +39,7 @@ services:
                 condition: any            
 
 volumes: 
-    db-volume:
+    db-volume: 
     moodleapp-data:
 
 networks:

@@ -3,29 +3,47 @@ To start (in the repo root): `docker-compose up`
 
 To stop (in the repo root): `docker-compose down`
 
-To back up Moodle instance state (in the repo root): 
-* Check which is the next backup tag
-* `docker ps` - find out id of container to backup
-* `docker commit -p -m "<COMMIT MESSAGE>" <CONTAINER_ID> backup-moodle_moodleapp_1_001`
-* `docker commit -p -m "<COMMIT MESSAGE>" <CONTAINER_ID> backup-moodle_dbapp_1_001`
-* `docker save -o ~/Backup/backup-moodle_moodleapp_1_001.tar backup-moodle_moodleapp_1_001`
-* `docker save -o ~/Backup/backup-moodle_dbapp_1_001.tar backup-moodle_dbapp_1_001`
-* Upload in the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup&fileid=127523215)
-
-To restore Moodle instance to prior state (in the repo root):
-* `docker load −i ∽/Backup/backup-moodle_moodleapp_1_001.tar`
-* `docker load −i ∽/Backup/backup-moodle_dbapp_1_001.tar`
+The Moodle instance is at `http://localhost:80`.
 
 To enter the shell of a docker container
 `docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it b698c1cd3f2e /bin/bash`
 
-To access the db: 
+### Set up Moodle: 
+1. Go to `http://localhost:80` and follow the instructions. Chose standard settings except 
+ * timezone should be Europe/Berlin
+ * email based self-registration should be possible
+ * email for outgoing emails needs to be "valid", eg. `noreply@localhost.de`
+2. Go to "Site Administration" > "Debugging" and set "Debug messages" to "DEVELOPER"
+3. Go to "Site Administration" > "Analytics settings" and 
+ * uncheck "Analytics processes execution via command line only"
+ * set "Keep analytics calculations for " to "Never delete calculations"
+
+### Use Moodle: 
+Go to `http://localhost:80` and log in with your chosen credentials, eg. Username `admin` and PW `Admin12_`.
+
+
+### Database 
+The MySQL database is at `127.0.0.1:3306`.
+
+To back up the database (in the repo root): 
+* Check which is the next backup tag
+* Navigate to the root folder of the repository
+* Compress data folder `tar -zcvpf <BACKUP-FILES-PATH>/data-<TAG>.tar.gz data`, eg. `tar -zcvpf ~/Backup/data-000.tar.gz data`
+* Upload in the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup/Datenbank-Backup&fileid=127595545)
+
+You can use **[MySQL Workbench](https://www.mysql.com/products/workbench/)** to export and import data.
+
+You can use **[PyCharm Pro](https://www.jetbrains.com/help/pycharm/mysql.html)** (available via student or teacher license) to inspect the database. 
+* In the Database-tab, create a new connection to a MySQL DB
+* Enter the address with port and the credentials given in the moodle_variables.env file
+* Chose a MySQL driver (you might need to install one)
+* Test the connection
+
+To access the db via container shell: 
 * In the container shell type `mysql -uroot -p` and enter the pw from the env file.
 * `use moodle`
 * `show tables;`
 
-Use Moodle: 
-Go to `http://localhost:80` and log in with Username `Admin` and PW `Admin12_`
 
 ### Tags 
 * 000 - Moodle Installed (default setting, 100% online, fully online, analysis process execution NOT via CLI only, NEVER DELETE analytics calculations)
