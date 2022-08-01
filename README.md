@@ -10,6 +10,7 @@ To enter the shell of a docker container
 
 ### Set up Moodle
 1. Go to `http://localhost:80` and follow the instructions. Chose standard settings except 
+ * password needs to be set to `Admin12_`
  * timezone should be Europe/Berlin
  * email based self-registration should be possible
  * email for outgoing emails needs to be "valid", eg. `noreply@localhost.de`
@@ -59,11 +60,6 @@ To back up a **course**
 * Select all except "IMS Common Cartridge 1.1", especially "include course logs"
 * Download the created backup file (.mbz) to your local backup folder
 * Upload downloaded course to the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup/Kurse&fileid=127595605)
-
-
-### Tags 
-* 000 - Moodle Installed (default setting, 100% online, fully online, analysis process execution NOT via CLI only, NEVER DELETE analytics calculations)
-* 001 - Test Course Created 
 
 --- 
 
