@@ -16,6 +16,11 @@ services:
                 condition: any
         ports:
             - 3306:3306
+        healthcheck:
+            test: mysqladmin $$MYSQL_DATABASE --user=$$MYSQL_USER --password='$$MYSQL_PASSWORD' ping"
+            interval: 10s
+            timeout: 2s
+            retries: 10
     moodleapp:
         build:
             context: .

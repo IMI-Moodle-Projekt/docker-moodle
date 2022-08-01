@@ -8,14 +8,16 @@ The Moodle instance is at `http://localhost:80`.
 To enter the shell of a docker container
 `docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it b698c1cd3f2e /bin/bash`
 
+To reset model: `bash reset.sh`
+
 ### Set up Moodle
-1. Go to `http://localhost:80` and follow the instructions. Chose standard settings except 
- * password needs to be set to `Admin12_`
- * timezone should be Europe/Berlin
- * email based self-registration should be possible
- * email for outgoing emails needs to be "valid", eg. `noreply@localhost.de`
-2. Go to "Site Administration" > "Debugging" and set "Debug messages" to "DEVELOPER"
-3. Go to "Site Administration" > "Analytics settings" and 
+1. Build the mysql and moodle containers with `docker-compose up`
+2. Run `docker exec -it <CONTAINER_ID> /bin/bash`
+2. In the container bash 
+ * run `/usr/bin/php /var/www/html/admin/cli/install_database.php --agree-license --fullname="iug-test-<V_NUMBER>" --shortname="iug-test-<V_NUMBER>" --adminuser="admin" --adminpass="Admin12_" --adminemail="admin@localhost.de"`
+ * run `php /var/www/html/admin/cli/cfg.php --name=debug --set=32767`
+2. Go to `http://localhost:80`
+4. Go to "Site Administration" > "Analytics settings" and 
  * uncheck "Analytics processes execution via command line only"
  * set "Keep analytics calculations for " to "Never delete calculations"
  
@@ -25,11 +27,9 @@ Go to `http://localhost:80` and log in with your chosen credentials, eg. Usernam
 
 
 ### Test Course Data
-* You can create a new test course at "Site Administration" > "Development" > "Make test course". Pay attention to estimated creation time.
-* You can download a course from the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup/Kurse&fileid=127595605) 
-* You can restore a course/ import it after creating a new empty course and then "Settings symbol on the upper right" > "Restore"
-
-
+* Create a new and mostly empty course at "My courses" > "Create new course"
+* Download a test course from the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup/Kurse&fileid=127595605) 
+* Restore the test course: In the empty course, "Settings symbol on the upper right" > "Course Reuse" > "Restore"
 
 ### Database 
 The MySQL database is at `127.0.0.1:3306`.
@@ -74,7 +74,7 @@ A Dockerfile that installs and runs the latest Moodle stable, with external MySQ
 `Note: DB Deployment uses version 5 of MySQL. MySQL:Latest is now v8.`
 
 Tags:
-* latest - 3.11 stable
+* latest - 3.11 stable (OUTDATED! NOW RUNNING MOODLE 4)
 * v3.11 - 3.11 stable
 * v3.8 - 3.8 stable
 * v3.7 - 3.7 stable

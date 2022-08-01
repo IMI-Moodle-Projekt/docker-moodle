@@ -33,7 +33,7 @@ git clone -b MOODLE_400_STABLE git://git.moodle.org/moodle.git --depth=1 && \
 mv /tmp/moodle/* /var/www/html/ && \
 rm /var/www/html/index.html
 
-# Install Plugins
+# Add Plugins
 ADD ./plugins/certificate.tar.xz /var/www/html/mod/
 ADD ./plugins/choicegroup.tar.xz /var/www/html/mod/
 ADD ./plugins/mass_enroll.tar.xz /var/www/html/local/
@@ -51,5 +51,12 @@ RUN a2enmod ssl && a2ensite default-ssl  #if using proxy dont need actually secu
 # Cleanup, this is ran to reduce the resulting size of the image.
 RUN apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/lib/cache/* /var/lib/log/* /var/lib/dpkg/*
 
+# Update PHP settings 
+RUN sed -i "s/post_max_size.*/post_max_size = 0/" /etc/php/7.4/apache2/php.ini && \
+sed -i "s/upload_max_filesize.*/upload_max_filesize = 128M/" /etc/php/7.4/apache2/php.ini && \
+sed -i "s/max_execution_time.*/max_execution_time = 300/" /etc/php/7.4/apache2/php.ini
+
+# Install Moodle
+# RUN /usr/bin/php /var/www/html/admin/cli/install_database.php --agree-license --fullname="iug-test-7" --shortname="iug-test-7" --adminuser="admin" --adminpass="Admin12_" --adminemail="admin@localhost.de"
 
 ENTRYPOINT ["/etc/apache2/foreground.sh"]
