@@ -1,8 +1,9 @@
 # Docker-Moodle
 # Dockerfile for moodle instance. more dockerish version of https://github.com/sergiogomez/docker-moodle
 # Forked from Jade Auer's docker version. https://github.com/jda/docker-moodle
+# Forked from Jonathan Hardison's version  https://github.com/jmhardison/docker-moodle/pkgs/container/docker-moodle
 FROM ubuntu:20.04
-LABEL maintainer="Jonathan Hardison <jmh@jonathanhardison.com>"
+LABEL maintainer="Linda Fernsel <lifaythegoblin@mailbox.org>"
 
 VOLUME ["/var/moodledata"]
 EXPOSE 80 443
@@ -28,10 +29,16 @@ mysql-client pwgen python-setuptools curl git unzip apache2 php \
 php-gd libapache2-mod-php postfix wget supervisor php-pgsql curl libcurl4 \
 libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstring php-zip php-soap cron php-ldap && \
 cd /tmp && \
-git clone -b MOODLE_311_STABLE git://git.moodle.org/moodle.git --depth=1 && \
+git clone -b MOODLE_400_STABLE git://git.moodle.org/moodle.git --depth=1 && \
 mv /tmp/moodle/* /var/www/html/ && \
-rm /var/www/html/index.html && \
-chown -R www-data:www-data /var/www/html && \
+rm /var/www/html/index.html
+
+# Install Plugins
+ADD ./plugins/certificate.tar.xz /var/www/html/mod/
+ADD ./plugins/choicegroup.tar.xz /var/www/html/mod/
+ADD ./plugins/mass_enroll.tar.xz /var/www/html/local/
+
+RUN chown -R www-data:www-data /var/www/html && \
 chmod +x /etc/apache2/foreground.sh
 
 #cron
@@ -43,5 +50,6 @@ RUN a2enmod ssl && a2ensite default-ssl  #if using proxy dont need actually secu
 
 # Cleanup, this is ran to reduce the resulting size of the image.
 RUN apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/lib/cache/* /var/lib/log/* /var/lib/dpkg/*
+
 
 ENTRYPOINT ["/etc/apache2/foreground.sh"]

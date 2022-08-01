@@ -38,7 +38,9 @@ services:
         deploy:
             replicas: 1
             restart_policy:
-                condition: any            
+                condition: any           
+        depends_on: 
+            - dbapp
 
 volumes: 
     db-volume: 
