@@ -56,7 +56,4 @@ RUN sed -i "s/post_max_size.*/post_max_size = 0/" /etc/php/7.4/apache2/php.ini &
 sed -i "s/upload_max_filesize.*/upload_max_filesize = 128M/" /etc/php/7.4/apache2/php.ini && \
 sed -i "s/max_execution_time.*/max_execution_time = 300/" /etc/php/7.4/apache2/php.ini
 
-# Install Moodle
-# RUN /usr/bin/php /var/www/html/admin/cli/install_database.php --agree-license --fullname="iug-test-7" --shortname="iug-test-7" --adminuser="admin" --adminpass="Admin12_" --adminemail="admin@localhost.de"
-
 ENTRYPOINT ["/etc/apache2/foreground.sh"]

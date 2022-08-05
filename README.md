@@ -15,7 +15,7 @@ To reset model: `bash reset.sh`
 2. Run `docker exec -it <CONTAINER_ID> /bin/bash`
 2. In the container bash 
  * run `/usr/bin/php /var/www/html/admin/cli/install_database.php --agree-license --fullname="iug-test-<V_NUMBER>" --shortname="iug-test-<V_NUMBER>" --adminuser="admin" --adminpass="Admin12_" --adminemail="admin@localhost.de"`
- * run `php /var/www/html/admin/cli/cfg.php --name=debug --set=32767`
+ * run `php /var/www/html/admin/cli/cfg.php --name=debug --set=32767` (logs more things)
 2. Go to `http://localhost:80`
 4. Go to "Site Administration" > "Analytics settings" and 
  * uncheck "Analytics processes execution via command line only"
