@@ -3,7 +3,7 @@
 # Forked from Jade Auer's docker version. https://github.com/jda/docker-moodle
 # Forked from Jonathan Hardison's version  https://github.com/jmhardison/docker-moodle/pkgs/container/docker-moodle
 FROM ubuntu:20.04
-LABEL maintainer="Linda Fernsel <lifaythegoblin@mailbox.org>"
+LABEL maintainer="Linda Fernsel <fernsel@htw-berlin.de>"
 
 VOLUME ["/var/moodledata"]
 EXPOSE 80 443
@@ -34,8 +34,6 @@ mv /tmp/moodle/* /var/www/html/ && \
 rm /var/www/html/index.html
 
 # Add Plugins
-ADD ./plugins/certificate.tar.xz /var/www/html/mod/
-ADD ./plugins/choicegroup.tar.xz /var/www/html/mod/
 ADD ./plugins/mass_enroll.tar.xz /var/www/html/local/
 
 RUN chown -R www-data:www-data /var/www/html && \

@@ -1,35 +1,29 @@
 ## A local Moodle instance via Docker
-To start (in the repo root): `docker-compose up`
-
-To stop (in the repo root): `docker-compose down`
+### Starting and stopping created Moodle instance
+* To start (in the repo root): `docker-compose up`
+* To stop (in the repo root): `docker-compose down`
 
 The Moodle instance is at `http://localhost:80`.
 
 To enter the shell of a docker container
 `docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it b698c1cd3f2e /bin/bash`
 
-To reset model: `bash reset.sh`
-
 ### Set up Moodle
-1. Build the mysql and moodle containers with `docker-compose up`
-2. Run `docker exec -it <CONTAINER_ID> /bin/bash`
-2. In the container bash 
- * run `/usr/bin/php /var/www/html/admin/cli/install_database.php --agree-license --fullname="iug-test-<V_NUMBER>" --shortname="iug-test-<V_NUMBER>" --adminuser="admin" --adminpass="Admin12_" --adminemail="admin@localhost.de"`
+0. Reset all: `bash reset.sh`
+1. Build the mysql and moodle containers with `docker-compose up --build`
+2. In a different terminal, run `docker exec -it <CONTAINER_ID> /bin/bash` (e.g. `docker exec -it docker-moodle_moodleapp_1 /bin/bash`) to get into the shell of the Moodle container
+3. In the container bash 
+ * run `/usr/bin/php /var/www/html/admin/cli/install_database.php --agree-license --fullname="iug-test-<V_NUMBER>" --shortname="iug-test-<V_NUMBER>" --adminuser="admin" --adminpass="Admin12_" --adminemail="admin@localhost.de"` (this installs Moodle)
  * run `php /var/www/html/admin/cli/cfg.php --name=debug --set=32767` (logs more things)
-2. Go to `http://localhost:80`
-4. Go to "Site Administration" > "Analytics settings" and 
+4. Go to `http://localhost:80`
+5. Go to "Site Administration" > "Analytics settings" and 
  * uncheck "Analytics processes execution via command line only"
+ * set Analysis time limit per model to 60 minutes
  * set "Keep analytics calculations for " to "Never delete calculations"
  
 
 ### Use Moodle
 Go to `http://localhost:80` and log in with your chosen credentials, eg. Username `admin` and PW `Admin12_`.
-
-
-### Test Course Data
-* Create a new and mostly empty course at "My courses" > "Create new course"
-* Download a test course from the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup/Kurse&fileid=127595605) 
-* Restore the test course: In the empty course, "Settings symbol on the upper right" > "Course Reuse" > "Restore"
 
 ### Database 
 The MySQL database is at `127.0.0.1:3306`.
@@ -54,12 +48,6 @@ To back up the **database** (in the repo root):
 * Check which is the next backup tag
 * Compress data folder `sudo tar -zcvpf <BACKUP-FILES-PATH>/data-<TAG>.tar.gz data`, eg. `sudo tar -zcvpf ~/Backup/data-000.tar.gz data`
 * Upload in the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup/Datenbank-Backup&fileid=127595545)
-
-To back up a **course**
-* Click on the settings icon in the upper right and select "Backup"
-* Select all except "IMS Common Cartridge 1.1", especially "include course logs"
-* Download the created backup file (.mbz) to your local backup folder
-* Upload downloaded course to the [HTW Cloud](https://cloud.htw-berlin.de/apps/files/?dir=/SHARED/Fair%20Enough/Lokaler%20Test%20Moodle%20Server%20Backup/Kurse&fileid=127595605)
 
 --- 
 
