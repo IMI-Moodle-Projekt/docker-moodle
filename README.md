@@ -25,6 +25,20 @@ To enter the shell of a docker container
 ### Use Moodle
 Go to `http://localhost:80` and log in with your chosen credentials, eg. Username `admin` and PW `Admin12_`.
 
+### Create more test users
+Admins can add new users. 
+The following scheme is useful:
+
+username: s0000001
+
+first name: first0000001
+
+last name: last0000001
+
+email: s0000001@htw-berlin.de
+
+pw: Student0000001_
+
 ### Database 
 The MySQL database is at `127.0.0.1:3306`.
 

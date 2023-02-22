@@ -28,10 +28,11 @@ apt-get -y install nano \
 mysql-client pwgen python-setuptools curl git unzip apache2 php \
 php-gd libapache2-mod-php postfix wget supervisor php-pgsql curl libcurl4 \
 libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstring php-zip php-soap cron php-ldap && \
-cd /tmp && \
-git clone -b MOODLE_400_STABLE git://git.moodle.org/moodle.git --depth=1 && \
-mv /tmp/moodle/* /var/www/html/ && \
-rm /var/www/html/index.html
+cd /tmp
+
+COPY ./moodle/* /var/www/html/
+
+RUN rm /var/www/html/index.html
 
 # Add Plugins
 ADD ./plugins/mass_enroll.tar.xz /var/www/html/local/
