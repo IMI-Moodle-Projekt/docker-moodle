@@ -2,7 +2,7 @@
 # Dockerfile for moodle instance. more dockerish version of https://github.com/sergiogomez/docker-moodle
 # Forked from Jade Auer's docker version. https://github.com/jda/docker-moodle
 # Forked from Jonathan Hardison's version  https://github.com/jmhardison/docker-moodle/pkgs/container/docker-moodle
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL maintainer="Linda Fernsel <fernsel@htw-berlin.de>"
 
 VOLUME ["/var/moodledata"]
@@ -27,15 +27,17 @@ RUN apt-get update && apt-get upgrade -y && \
 apt-get -y install nano \
 mysql-client pwgen python-setuptools curl git unzip apache2 php \
 php-gd libapache2-mod-php postfix wget supervisor php-pgsql curl libcurl4 \
-libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstring php-zip php-soap cron php-ldap && \
-cd /tmp
+libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstring php-zip php-soap cron php-ldap
 
-COPY ./moodle/* /var/www/html/
+ADD ./moodle/ /var/www/html/
 
 RUN rm /var/www/html/index.html
 
 # Add Plugins
 ADD ./plugins/mass_enroll.tar.xz /var/www/html/local/
+RUN git clone https://github.com/moodlehq/moodle-local_codechecker.git /var/www/html/local/codechecker && \
+git clone https://github.com/moodlehq/moodle-local_moodlecheck.git /var/www/html/local/moodlecheck && \
+git clone https://github.com/mudrd8mz/moodle-tool_pluginskel.git /var/www/html/admin/tool/pluginskel
 
 RUN chown -R www-data:www-data /var/www/html && \
 chmod +x /etc/apache2/foreground.sh
@@ -51,8 +53,10 @@ RUN a2enmod ssl && a2ensite default-ssl  #if using proxy dont need actually secu
 RUN apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/lib/cache/* /var/lib/log/* /var/lib/dpkg/*
 
 # Update PHP settings 
-RUN sed -i "s/post_max_size.*/post_max_size = 0/" /etc/php/7.4/apache2/php.ini && \
-sed -i "s/upload_max_filesize.*/upload_max_filesize = 128M/" /etc/php/7.4/apache2/php.ini && \
-sed -i "s/max_execution_time.*/max_execution_time = 300/" /etc/php/7.4/apache2/php.ini
+RUN sed -i "s/post_max_size.*/post_max_size = 0/" /etc/php/8.1/apache2/php.ini && \
+sed -i "s/upload_max_filesize.*/upload_max_filesize = 128M/" /etc/php/8.1/apache2/php.ini && \
+sed -i "s/max_execution_time.*/max_execution_time = 300/" /etc/php/8.1/apache2/php.ini && \
+sed -i "s/;max_input_vars.*/max_input_vars = 5000/" /etc/php/8.1/apache2/php.ini
+
 
 ENTRYPOINT ["/etc/apache2/foreground.sh"]
