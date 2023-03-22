@@ -29,15 +29,6 @@ mysql-client pwgen python-setuptools curl git unzip apache2 php \
 php-gd libapache2-mod-php postfix wget supervisor php-pgsql curl libcurl4 \
 libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstring php-zip php-soap cron php-ldap
 
-ADD ./moodle/ /var/www/html/
-
-RUN rm /var/www/html/index.html
-
-# Add Plugins
-ADD ./plugins/mass_enroll.tar.xz /var/www/html/local/
-RUN git clone https://github.com/moodlehq/moodle-local_codechecker.git /var/www/html/local/codechecker && \
-git clone https://github.com/moodlehq/moodle-local_moodlecheck.git /var/www/html/local/moodlecheck && \
-git clone https://github.com/mudrd8mz/moodle-tool_pluginskel.git /var/www/html/admin/tool/pluginskel
 
 RUN chown -R www-data:www-data /var/www/html && \
 chmod +x /etc/apache2/foreground.sh

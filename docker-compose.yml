@@ -32,6 +32,7 @@ services:
         restart: always
         volumes:
             - moodleapp-data:/var/moodledata
+            - ./moodle:/var/www/html/
         ports:
             - 80:80
             - 443:443
@@ -48,8 +49,10 @@ services:
             - dbapp
 
 volumes: 
+    moodle:
     db-volume: 
     moodleapp-data:
+    
 
 networks:
     backendDB:
