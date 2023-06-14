@@ -3,4 +3,4 @@ set -x
 
 docker exec -t docker-moodle_moodleapp_1 php /var/www/html/admin/tool/phpunit/cli/init.php
 
-docker exec -t docker-moodle_moodleapp_1 /var/www/html/vendor/bin/phpunit --filter tool_dataprivacy_metadata_registry_testcase
+docker exec -t -w /var/www/html docker-moodle_moodleapp_1 vendor/bin/phpunit admin/tool/dataprivacy/tests/metadata_registry_test.php
