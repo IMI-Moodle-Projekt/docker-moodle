@@ -10,9 +10,9 @@ trap "kill -TERM -$pgrp; exit" EXIT TERM KILL SIGKILL SIGTERM SIGQUIT
 #start up cron
 /usr/sbin/cron
 
-# install Moodle
-# does not seem to work at the moment.
-/usr/bin/php /var/www/html/admin/cli/install_database.php --agree-license --fullname="iug-auditable-moodle" --shortname="iug-auditable-moodle" --adminuser="admin" --adminpass="Admin12_" --adminemail="admin@localhost.de"
+#composer
+cd /var/www/html
+composer install
 
 source /etc/apache2/envvars
 tail -F /var/log/apache2/* &

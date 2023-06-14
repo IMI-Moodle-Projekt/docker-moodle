@@ -610,9 +610,9 @@ if ( getenv('SSL_PROXY') == "true" ) {
 //=========================================================================
 // 9. PHPUNIT SUPPORT
 //=========================================================================
-// $CFG->phpunit_prefix = 'phpu_';
-// $CFG->phpunit_dataroot = '/home/example/phpu_moodledata';
-// $CFG->phpunit_directorypermissions = 02777; // optional
+$CFG->phpunit_prefix = 'phpu_';
+$CFG->phpunit_dataroot = '/var/phpu_moodledata';
+$CFG->phpunit_directorypermissions = 02777; // optional
 //
 //
 //=========================================================================

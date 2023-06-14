@@ -25,10 +25,14 @@ COPY ./foreground.sh /etc/apache2/foreground.sh
 
 RUN apt-get update && apt-get upgrade -y && \
 apt-get -y install nano \
-mysql-client pwgen python-setuptools curl git unzip apache2 php \
+mysql-client pwgen python-setuptools curl git unzip apache2 php locales \
 php-gd libapache2-mod-php postfix wget supervisor php-pgsql curl libcurl4 \
-libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstring php-zip php-soap cron php-ldap
+libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstring php-zip php-soap cron php-ldap php-cli
 
+# Install composer
+RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php && \
+HASH=`curl -sS https://composer.github.io/installer.sig` && \
+php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
 
 RUN chown -R www-data:www-data /var/www/html && \
 chmod +x /etc/apache2/foreground.sh
@@ -49,5 +53,7 @@ sed -i "s/upload_max_filesize.*/upload_max_filesize = 128M/" /etc/php/8.1/apache
 sed -i "s/max_execution_time.*/max_execution_time = 300/" /etc/php/8.1/apache2/php.ini && \
 sed -i "s/;max_input_vars.*/max_input_vars = 5000/" /etc/php/8.1/apache2/php.ini
 
+# Required for Unit Testing
+RUN locale-gen en_AU.UTF-8
 
 ENTRYPOINT ["/etc/apache2/foreground.sh"]
