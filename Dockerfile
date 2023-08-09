@@ -7,7 +7,6 @@ LABEL maintainer="Linda Fernsel <fernsel@htw-berlin.de>"
 
 VOLUME ["/var/moodledata"]
 EXPOSE 80 443
-COPY moodle-config.php /var/www/html/config.php
 
 # Let the container know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
@@ -33,6 +32,8 @@ libcurl3-dev php-curl php-xmlrpc php-intl php-mysql git-core php-xml php-mbstrin
 RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php && \
 HASH=`curl -sS https://composer.github.io/installer.sig` && \
 php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
+
+# COPY moodle-config.php /var/www/html/config.php # Need to copy this by hand since Moodle is a volume!
 
 RUN chown -R www-data:www-data /var/www/html && \
 chmod +x /etc/apache2/foreground.sh
