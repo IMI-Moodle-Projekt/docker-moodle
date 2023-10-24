@@ -39,6 +39,10 @@ Go to `http://localhost:80` and log in with your chosen credentials, eg. Usernam
 #### Tests
 To run plugin tests: `bash run-plugin-test.sh`
 
+
+#### Cron
+The LaLA plugin requires cron to execute adhoc tasks. To start up cron run `bash run-cron.sh`
+
 ### Create more test users
 Admins can add new users. 
 The following scheme is useful:

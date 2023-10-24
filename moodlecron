@@ -1,1 +1,2 @@
-*/10 * * * * /usr/bin/php /var/www/html/admin/cli/cron.php  >/dev/null
+* * * * * www-data /usr/bin/php /var/www/html/admin/cli/adhoc_task.php --execute >/dev/null 2>&1
+
