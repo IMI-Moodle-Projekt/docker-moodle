@@ -2,60 +2,52 @@
 
 Moodle 4.2 with PHP 8.1 and MySQL 8.0.32. Database and Moodle code are external volumes.
 
-### Starting and stopping created Moodle instance
-* To start (in the repo root): `docker-compose up`
-* To stop (in the repo root): `docker-compose down`
+### Quick start
+* *Start*: 
+  * Download the bash script `start.sh` from this repo (or have it sent to you). 
+  * Open a terminal and run it: `bash start.sh`. This will clone this repo at the correct branch, including the Moodle and LaLA submodules, start up the docker containers, load test data and start listening to adhoc tasks. 
+* *Stop*: `Ctrl` + `C`, then type `docker-compose down`.
 
-The Moodle instance is at `http://localhost:80` but might not be working yet. You need to set up Moodle the first time.
+### Listening to adhoc tasks (again)
+LaLA uses adhoc tasks to run the model version creation in the background. Run `bash run-cron.sh`. This also starts the listening back up if it has ended due to the time limit being reached.
 
+### Not using quick start
+* Clone this repo.
+
+* To start (in this repo root): `docker-compose up`
+* To stop (in this repo root): `docker-compose down`
+
+* To load test data: `restore-courses.sh`.
+* See above for how to start listening to adhoc tasks.
+
+### Set up Moodle
+0. If you used the quick start, Moodle is already installed.
+1. Optionally: `bash reset.sh`
+2. Run `bash install-moodle.sh`
+3. Optionally: run `php /var/www/html/admin/cli/cfg.php --name=debug --set=32767` (logs more things)
+
+Admin credentials are:
+* *username*: `admin`
+* *password*: `Admin12_`
+
+### Use Moodle
+Go to `http://localhost:80` and log in with your credentials.
+
+### Modifying the Moodle instance from within the container
 To enter the shell of a docker container
 `docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it b698c1cd3f2e /bin/bash`
 
-### Set up Moodle
-0. Reset all: `bash reset.sh`
-1. Get Moodle 4.2: `git clone -b MOODLE_402_STABLE https://github.com/moodle/moodle.git
-2. Copy the "moodle-config.php" file into the moodle directory and rename it to "config.php": `cp moodle-config.php /moodle/config.php`
-3. Build the mysql and moodle containers: `docker-compose up --build`
-4. In a different terminal, run `docker exec -it <CONTAINER_ID> /bin/bash` (e.g. `docker exec -it docker-moodle_moodleapp_1 /bin/bash`) to get into the shell of the Moodle container
-5. In the container bash 
- * run `/usr/bin/php /var/www/html/admin/cli/install_database.php --agree-license --fullname="iug-test-<V_NUMBER>" --shortname="iug-test-<V_NUMBER>" --adminuser="admin" --adminpass="Admin12_" --adminemail="admin@localhost.de"` (this installs Moodle)
- * run `php /var/www/html/admin/cli/cfg.php --name=debug --set=32767` (logs more things)
-
-### Use Moodle
-Go to `http://localhost:80` and log in with your chosen credentials, eg. Username `admin` and PW `Admin12_`.
-
 ### The LaLA plugin
 #### Installation
-1. Copy the LaLA plugin into `/moodle/admin/tools/`
+1. If you used the quick start, LaLA is already copied to Moodle. Otherwise, copy the LaLA plugin into `/moodle/admin/tools/`.
 2. Check out the homepage of your Moodle instance and run the updates to install the plugin.
-
-#### Use
 1. Go to "Site Administration" > "Analytics settings" and 
  * uncheck "Analytics processes execution via command line only"
  * set Analysis time limit per model to 60 minutes
  * set "Keep analytics calculations for " to "Never delete calculations"
-2. Upload some data: Go to Courses -> Restore course and upload the "Teaching with Moodle" course back up.
 
 #### Tests
 To run plugin tests: `bash run-plugin-test.sh`
-
-
-#### Cron
-The LaLA plugin requires cron to execute adhoc tasks. To start up cron run `bash run-cron.sh`
-
-### Create more test users
-Admins can add new users. 
-The following scheme is useful:
-
-username: s0000001
-
-first name: first0000001
-
-last name: last0000001
-
-email: s0000001@localhost.de
-
-pw: Student0000001_
 
 ### Database 
 The MySQL database is at `127.0.0.1:3306`.
@@ -74,12 +66,6 @@ To access the db via **container shell**:
 * `show tables;`
 
 You can also access **Moodle's XMLDB editor** at "Site Administration" > "Development" > "XMLDB editor".
-
-## Caveats
-The following aren't handled, considered, or need work: 
-* moodle cronjob (should be called from cron container)
-* log handling (stdout?)
-* email (does it even send?)
 
 ## Credits
 This is a fork of [Jim Hardison's](https://github.com/jmhardison/docker-moodle/pkgs/container/docker-moodle) Moodle Docker, which is a fork of [Jade Auer's](https://github.com/jda/docker-moodle) Dockerfile, which is a reductionist take on [sergiogomez](https://github.com/sergiogomez/)'s docker-moodle Dockerfile.

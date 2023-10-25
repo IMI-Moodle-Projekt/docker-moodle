@@ -33,7 +33,10 @@ RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php && \
 HASH=`curl -sS https://composer.github.io/installer.sig` && \
 php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
 
-# COPY moodle-config.php /var/www/html/config.php # Need to copy this by hand since Moodle is a volume!
+COPY ./moodle-config.php /var/www/html/config.php # Need to copy this by hand since Moodle is a volume!
+
+# Copy plugin into correct folder
+COPY moodle-tool_lala/ /var/www/html/admin/tool/lala
 
 RUN chown -R www-data:www-data /var/www/html && \
 chmod +x /etc/apache2/foreground.sh
