@@ -2,10 +2,15 @@
 
 Moodle 4.2 with PHP 8.1 and MySQL 8.0.32. Database and Moodle code are external volumes.
 
+### Prerequisites
+* A unix OS (tested with Ubuntu 22)
+* Docker
+* Docker Compose
+
 ### Quick start
 * *Start*: 
   * Download the bash script `start.sh` from this repo (or have it sent to you). 
-  * Open a terminal and run it: `bash start.sh`. This will clone this repo at the correct branch, including the Moodle and LaLA submodules, start up the docker containers, load test data and start listening to adhoc tasks. 
+  * Open a terminal and run it: `bash start.sh`. This will clone this repo, switch to the correct branch, including the Moodle and LaLA submodules, start up the docker containers, install LaLA, load test data and start listening to adhoc tasks. 
 * *Stop*: `Ctrl` + `C`, then type `docker-compose down`.
 
 ### Listening to adhoc tasks (again)
@@ -17,10 +22,13 @@ LaLA uses adhoc tasks to run the model version creation in the background. Run `
 * To start (in this repo root): `docker-compose up`
 * To stop (in this repo root): `docker-compose down`
 
-* To load test data: `restore-courses.sh`.
+* To below for how to install Moodle.
+* To below for how to install LaLA.
+* To load test data: `bash restore-courses.sh`
+
 * See above for how to start listening to adhoc tasks.
 
-### Set up Moodle
+### Install Moodle
 0. If you used the quick start, Moodle is already installed.
 1. Optionally: `bash reset.sh`
 2. Run `bash install-moodle.sh`
@@ -33,21 +41,24 @@ Admin credentials are:
 ### Use Moodle
 Go to `http://localhost:80` and log in with your credentials.
 
-### Modifying the Moodle instance from within the container
-To enter the shell of a docker container
-`docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it b698c1cd3f2e /bin/bash`
-
-### The LaLA plugin
-#### Installation
-1. If you used the quick start, LaLA is already copied to Moodle. Otherwise, copy the LaLA plugin into `/moodle/admin/tools/`.
-2. Check out the homepage of your Moodle instance and run the updates to install the plugin.
-1. Go to "Site Administration" > "Analytics settings" and 
+#### Useful settings:
+CAN THIS BE SET VIA CLI?
+Go to "Site Administration" > "Analytics settings" and 
  * uncheck "Analytics processes execution via command line only"
  * set Analysis time limit per model to 60 minutes
  * set "Keep analytics calculations for " to "Never delete calculations"
 
+### The LaLA plugin
+#### Installation
+Run `bash install-lala.sh`
+
 #### Tests
-To run plugin tests: `bash run-plugin-test.sh`
+Run `bash run-plugin-test.sh`
+
+### Modifying the Moodle instance from within the container
+To enter the shell of a docker container
+`docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it b698c1cd3f2e /bin/bash`
+
 
 ### Database 
 The MySQL database is at `127.0.0.1:3306`.
