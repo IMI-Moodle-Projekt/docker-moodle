@@ -9,7 +9,7 @@ Moodle 4.2 with PHP 8.1 and MySQL 8.0.32. Database and Moodle code are external 
 
 ### Quick start
 * *Start*: 
-  * Download the bash script `start.sh` from this repo (or have it sent to you). 
+  * Download the bash script `start.sh` for a quickstart: https://gitlab.com/iug-research/moodle-learning-analytics/lala-quickstart
   * Open a terminal and run it: `bash start.sh`. This will clone this repo, switch to the correct branch, including the Moodle and LaLA submodules, start up the docker containers, install LaLA, load test data and start listening to adhoc tasks. 
 * *Stop*: `Ctrl` + `C`, then type `docker-compose down`.
 
@@ -39,14 +39,7 @@ Admin credentials are:
 * *password*: `Admin12_`
 
 ### Use Moodle
-Go to `http://localhost:80` and log in with your credentials.
-
-#### Useful settings:
-CAN THIS BE SET VIA CLI?
-Go to "Site Administration" > "Analytics settings" and 
- * uncheck "Analytics processes execution via command line only"
- * set Analysis time limit per model to 60 minutes
- * set "Keep analytics calculations for " to "Never delete calculations"
+Go to `http://localhost:80` and log in with the admin credentials.
 
 ### The LaLA plugin
 #### Installation
@@ -58,7 +51,6 @@ Run `bash run-plugin-test.sh`
 ### Modifying the Moodle instance from within the container
 To enter the shell of a docker container
 `docker exec -it <CONTAINER_ID> /bin/bash`, eg. `docker exec -it b698c1cd3f2e /bin/bash`
-
 
 ### Database 
 The MySQL database is at `127.0.0.1:3306`.
