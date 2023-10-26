@@ -38,9 +38,7 @@ services:
             - backendDB
             - frontendWEB
         deploy:
-            replicas: 1         
-        depends_on: 
-            - dbapp
+            replicas: 1
 
 volumes: 
     moodle:
