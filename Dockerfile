@@ -13,8 +13,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Database info and other connection information derrived from env variables. See readme.
 # Set ENV Variables externally Moodle_URL should be overridden.
-ENV MOODLE_URL http://127.0.0.1
-#ENV TERM xterm
+# ENV MOODLE_URL http://moodle-ws-01.f4.htw-berlin.de
+# ENV TERM xterm
 
 # Enable when using external SSL reverse proxy
 # Default: false
