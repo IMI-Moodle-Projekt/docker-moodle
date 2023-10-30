@@ -5,12 +5,12 @@ Moodle 4.2 with PHP 8.1 and MySQL 8.0.32. Database and Moodle code are external 
 ### Prerequisites
 * A unix OS (tested with Ubuntu 22)
 * Docker
-* Docker Compose
+* Docker Compose (v.2+)
 
 ### Quick start
 * *Start*: 
-  * Download the bash script `start.sh` for a quickstart: https://gitlab.com/iug-research/moodle-learning-analytics/lala-quickstart
-  * Open a terminal and run it: `bash start.sh`. This will clone this repo, switch to the correct branch, including the Moodle and LaLA submodules, start up the docker containers, install LaLA, load test data and start listening to adhoc tasks. 
+  * Download a bash script for a quickstart: https://gitlab.com/iug-research/moodle-learning-analytics/lala-quickstart
+  * Open a terminal and run it: `bash start-local.sh` or `bash start-server.sh`. This will clone this repo, switch to the correct branch, including the Moodle and LaLA submodules, start up the docker containers, install LaLA, load test data and start listening to adhoc tasks. 
 * *Stop*: `Ctrl` + `C`, then type `docker-compose down`.
 
 ### Listening to adhoc tasks (again)
