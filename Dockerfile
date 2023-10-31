@@ -39,7 +39,7 @@ chmod +x /etc/apache2/foreground.sh
 #cron
 COPY moodlecron /etc/cron.d/moodlecron
 RUN chmod 0644 /etc/cron.d/moodlecron
-RUN crontab -u www-data /etc/cron.d/moodlecron
+RUN crontab /etc/cron.d/moodlecron
 
 # Enable SSL, moodle requires it
 RUN a2enmod ssl && a2ensite default-ssl  #if using proxy dont need actually secure connection
