@@ -1070,7 +1070,7 @@ $CFG->phpunit_profilingenabled = true; // optional to profile PHPUnit runs.
 // Path to PHP CLI.
 // Probably something like /usr/bin/php. If you enter this, cron scripts can be
 // executed from admin web interface.
-// $CFG->pathtophp = '';
+$CFG->pathtophp = '/usr/bin/php';
 //
 // Path to du.
 // Probably something like /usr/bin/du. If you enter this, pages that display
