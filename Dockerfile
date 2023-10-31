@@ -59,7 +59,6 @@ sed -i "s/upload_max_filesize.*/upload_max_filesize = 128M/" /etc/php/8.1/cli/ph
 sed -i "s/max_execution_time.*/max_execution_time = 300/" /etc/php/8.1/cli/php.ini && \
 sed -i "s/;max_input_vars.*/max_input_vars = 5000/" /etc/php/8.1/cli/php.ini
 
-
 # Required for Unit Testing
 RUN locale-gen en_AU.UTF-8
 
