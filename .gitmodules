@@ -1,7 +1,7 @@
-[submodule "moodle-tool_lala"]
-	path = moodle-tool_lala
-	url = https://github.com/LiFaytheGoblin/moodle-tool_lala.git
 	
 [submodule "moodle"]
 	path = moodle
 	url = https://github.com/moodle/moodle.git
+[submodule "dockmod"]
+	path = dockmod
+	url = git@github.com:IMI-Moodle-Projekt/dockmod.git
