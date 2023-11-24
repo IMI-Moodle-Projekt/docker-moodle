@@ -1,5 +1,4 @@
-	
-[submodule "moodle"]
+	[submodule "moodle"]
 	path = moodle
 	url = https://github.com/moodle/moodle.git
 [submodule "dockmod"]
