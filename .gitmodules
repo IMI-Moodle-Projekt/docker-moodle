@@ -4,3 +4,9 @@
 [submodule "dockmod"]
 	path = dockmod
 	url = git@github.com:IMI-Moodle-Projekt/dockmod.git
+[submodule "Pfad_im_Repository"]
+	path = Pfad_im_Repository
+	url = https://github.com/IMI-Moodle-Projekt/smartlibrary.git
+[submodule "andererName"]
+	path = andererPfad_im_Repository
+	url = https://github.com/IMI-Moodle-Projekt/smartlibrary.git
