@@ -1,1 +1,1 @@
-php phpDocumentor.phar -d /moodle/admin/tool/lala -t /docs
+php phpDocumentor.phar -d /moodle/admin/tool/smartlibrary -t /docs

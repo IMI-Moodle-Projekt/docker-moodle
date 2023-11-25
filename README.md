@@ -9,12 +9,12 @@ Moodle 4.2 with PHP 8.1 and MySQL 8.0.32. Database and Moodle code are external 
 
 ### Quick start
 * *Start*: 
-  * Download a bash script for a quickstart: https://gitlab.com/iug-research/moodle-learning-analytics/lala-quickstart
-  * Open a terminal and run it: `bash start-local.sh` or `bash start-server.sh`. This will clone this repo, switch to the correct branch, including the Moodle and LaLA submodules, start up the docker containers, install LaLA, load test data and start listening to adhoc tasks. 
+  * Download a bash script for a quickstart: https://gitlab.com/iug-research/moodle-learning-analytics/smartlibrary-quickstart
+  * Open a terminal and run it: `bash start-local.sh` or `bash start-server.sh`. This will clone this repo, switch to the correct branch, including the Moodle and smartlibrary submodules, start up the docker containers, install smartlibrary, load test data and start listening to adhoc tasks. 
 * *Stop*: `Ctrl` + `C`, then type `docker-compose down`.
 
 ### Listening to adhoc tasks (again)
-LaLA uses adhoc tasks to run the model version creation in the background. Run `bash run-cron.sh`. This also starts the listening back up if it has ended due to the time limit being reached.
+smartlibrary uses adhoc tasks to run the model version creation in the background. Run `bash run-cron.sh`. This also starts the listening back up if it has ended due to the time limit being reached.
 
 ### Not using quick start
 * Clone this repo.
@@ -23,7 +23,7 @@ LaLA uses adhoc tasks to run the model version creation in the background. Run `
 * To stop (in this repo root): `docker-compose down`
 
 * To below for how to install Moodle.
-* To below for how to install LaLA.
+* To below for how to install smartlibrary.
 * To load test data: `bash restore-courses.sh`
 
 * See above for how to start listening to adhoc tasks.
@@ -41,9 +41,9 @@ Admin credentials are:
 ### Use Moodle
 Go to `http://localhost:80` and log in with the admin credentials.
 
-### The LaLA plugin
+### The smartlibrary plugin
 #### Installation
-Run `bash install-lala.sh`
+Run `bash install-smartlibrary.sh`
 
 #### Tests
 Run `bash run-plugin-test.sh`
