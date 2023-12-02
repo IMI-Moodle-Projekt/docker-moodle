@@ -2,3 +2,4 @@
 data/
 moodle/
 plugins/
+.DS_Store
