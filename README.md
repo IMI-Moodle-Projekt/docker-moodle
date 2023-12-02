@@ -7,29 +7,17 @@ Moodle 4.2 with PHP 8.1 and MySQL 8.0.32. Database and Moodle code are external 
 * Docker
 * Docker Compose (v.2+)
 
-### Quick start
-* *Start*: 
-  * Download a bash script for a quickstart: https://gitlab.com/iug-research/moodle-learning-analytics/lala-quickstart
-  * Open a terminal and run it: `bash start-local.sh` or `bash start-server.sh`. This will clone this repo, switch to the correct branch, including the Moodle and LaLA submodules, start up the docker containers, install LaLA, load test data and start listening to adhoc tasks. 
-* *Stop*: `Ctrl` + `C`, then type `docker-compose down`.
-
-### Listening to adhoc tasks (again)
-LaLA uses adhoc tasks to run the model version creation in the background. Run `bash run-cron.sh`. This also starts the listening back up if it has ended due to the time limit being reached.
-
-### Not using quick start
-* Clone this repo.
-
-* To start (in this repo root): `docker-compose up`
-* To stop (in this repo root): `docker-compose down`
-
-* To below for how to install Moodle.
-* To below for how to install LaLA.
-* To load test data: `bash restore-courses.sh`
-
-* See above for how to start listening to adhoc tasks.
+### Setup
+* Clone this repo: `git clone git@github.com:IMI-Moodle-Projekt/docker-moodle.git docker-moodle`
+* `cd docker-moodle`
+* Initialize submodules: `git submodule update --init --recursive`
+* Build: `docker compose up --build -d`
+* `docker compose down`
+* Install Moodle (see blow). Quick install: `bash install-moodle.sh`
+* Install Smartlibrary (see blow). Quick install: `bash install-smartlibrary.sh`
+* Load test data: `bash restore-courses.sh`
 
 ### Install Moodle
-0. If you used the quick start, Moodle is already installed.
 1. Optionally: `bash reset.sh`
 2. Run `bash install-moodle.sh`
 3. Optionally: run `php /var/www/html/admin/cli/cfg.php --name=debug --set=32767` (logs more things)
@@ -41,9 +29,9 @@ Admin credentials are:
 ### Use Moodle
 Go to `http://localhost:80` and log in with the admin credentials.
 
-### The LaLA plugin
+### The Smartlibrary plugin
 #### Installation
-Run `bash install-lala.sh`
+Run `bash install-smartlibrary.sh`
 
 #### Tests
 Run `bash run-plugin-test.sh`
@@ -71,4 +59,4 @@ To access the db via **container shell**:
 You can also access **Moodle's XMLDB editor** at "Site Administration" > "Development" > "XMLDB editor".
 
 ## Credits
-This is a fork of [Jim Hardison's](https://github.com/jmhardison/docker-moodle/pkgs/container/docker-moodle) Moodle Docker, which is a fork of [Jade Auer's](https://github.com/jda/docker-moodle) Dockerfile, which is a reductionist take on [sergiogomez](https://github.com/sergiogomez/)'s docker-moodle Dockerfile.
+This is a fork of [Linda Fernsel's Moodle Learning Analytics](https://gitlab.com/iug-research/moodle-learning-analytics/docker-moodle.git) Moodle Docker, which is a fork of [Jim Hardison's](https://github.com/jmhardison/docker-moodle/pkgs/container/docker-moodle) Moodle Docker, which is a fork of [Jade Auer's](https://github.com/jda/docker-moodle) Dockerfile, which is a reductionist take on [sergiogomez](https://github.com/sergiogomez/)'s docker-moodle Dockerfile.
