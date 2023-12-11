@@ -34,6 +34,17 @@ How to connect to the moodle database:
 * `USE moodle`
 * `show tables;` (or whaterver you need to do)
 
+### How to pull and apply all changes from the Smartlibrary repository
+* shudown docker (optional): `docker compose down`
+* get all changes from the repository, including the submodules: `git pull --recurse-submodules`
+* remove old smartlibrary in moodle (optional) `rm -r "moodle/local/smartlibrary"`
+* copy the smartlibrary from the submodule into moodle: `cp -r "smartlibrary/" "moodle/local/smartlibrary"`
+* run docker: `docker compose up`
+* run the moodle upgrade script to apply changes from the smartlibrary plugin: `bash run-upgrade.sh`
+* run the moodle cron script to execute all pending cron tasks (optional): `bash run-cron.sh`
+* visit `Moodle -> Site administration -> Notifications` to check for any remaining update steps (optional)
+* visit `Moodle -> Site administration -> Development -> Purche all caches` if you make changes to events, hooks in moddule while moodle is running (optional)
+
 ### The Smartlibrary plugin
 #### Installation
 Run `bash install-smartlibrary.sh`
