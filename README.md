@@ -12,7 +12,6 @@ Moodle 4.2 with PHP 8.1 and MySQL 8.0.32. Database and Moodle code are external 
 * `cd docker-moodle`
 * Initialize submodules: `git submodule update --init --recursive`
 * Build: `docker compose up --build -d`
-* `docker compose down`
 * Install Moodle (see blow). Quick install: `bash install-moodle.sh`
 * Install Smartlibrary (see blow). Quick install: `bash install-smartlibrary.sh`
 * Load test data: `bash restore-courses.sh`
@@ -28,6 +27,12 @@ Admin credentials are:
 
 ### Use Moodle
 Go to `http://localhost:80` and log in with the admin credentials.
+
+### Database
+How to connect to the moodle database:
+* `docker exec -it docker-moodle-dbapp-1 mysql -uroot -p` (the password is "moodle")
+* `USE moodle`
+* `show tables;` (or whaterver you need to do)
 
 ### The Smartlibrary plugin
 #### Installation
