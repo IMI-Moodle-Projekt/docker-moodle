@@ -3,4 +3,4 @@
 	url = https://github.com/moodle/moodle.git
 [submodule "smartlibrary"]
 	path = smartlibrary
-	url = https://github.com/IMI-Moodle-Projekt/smartlibrary.git
+	url = git@github.com:IMI-Moodle-Projekt/smartlibrary.git
