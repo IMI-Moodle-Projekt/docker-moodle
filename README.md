@@ -35,6 +35,7 @@ How to connect to the moodle database:
 * `show tables;` (or whaterver you need to do)
 
 ### How to pull and apply all changes from the Smartlibrary repository
+* sync submodles (optional): `git submodule sync`
 * shudown docker (optional): `docker compose down`
 * get all changes from the repository, including the submodules: `git pull --recurse-submodules`
 * remove old smartlibrary in moodle (optional) `rm -r "moodle/local/smartlibrary"`
